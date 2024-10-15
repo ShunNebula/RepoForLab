@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <iostream>
 
+using namespace std;
+
 // Конструктор по умолчанию.
 DynamicArray::DynamicArray() : _size(0), _capacity(4), _array(new int[_capacity]) {}
 
@@ -42,7 +44,7 @@ void DynamicArray::_resize(int newCapacity) {
 // Добавляет элемент в массив.
 void DynamicArray::AddElement(int index, int value) {
     if (index < 0 || index > _size) {
-        std::cerr << "Invalid index." << std::endl;
+        cerr << "Invalid index." << endl;
         return;
     }
 
@@ -60,7 +62,7 @@ void DynamicArray::AddElement(int index, int value) {
 // Удаляет элемент массива по передаваемому индексу.
 void DynamicArray::RemoveByIndex(int index) {
     if (index < 0 || index >= _size) {
-        std::cerr << "Invalid index." << std::endl;
+        cerr << "Invalid index." << endl;
         return;
     }
 
@@ -83,13 +85,13 @@ void DynamicArray::RemoveByValue(int value) {
             return;
         }
     }
-    std::cerr << "Value not found in array." << std::endl;
+    cerr << "Value not found in array." << endl;
 }
 
 // Возвращает элемент по индексу.
 int DynamicArray::GetElement(int index) {
     if (index < 0 || index >= _size) {
-        std::cerr << "Invalid index." << std::endl;
+        cerr << "Invalid index." << endl;
         return -1;
     }
     return _array[index];
@@ -107,7 +109,7 @@ void DynamicArray::SortArray() {
         // Проход слева направо
         for (int i = left; i < right; i++) {
             if (_array[i] > _array[i + 1]) {
-                std::swap(_array[i], _array[i + 1]);
+                swap(_array[i], _array[i + 1]);
                 swapped = true;
             }
         }
@@ -116,7 +118,7 @@ void DynamicArray::SortArray() {
         // Проход справа налево
         for (int i = right; i > left; i--) {
             if (_array[i] < _array[i - 1]) {
-                std::swap(_array[i], _array[i - 1]);
+                swap(_array[i], _array[i - 1]);
                 swapped = true;
             }
         }
@@ -124,15 +126,37 @@ void DynamicArray::SortArray() {
     }
 }
 
+// Сортирует массив методом Comb Sort.
+//void DynamicArray::SortArray() {
+//    int gap = _size;
+//    bool swapped = true;
+//
+//    while (gap > 1 || swapped) {
+//        gap = (gap * 10) / 13; // Вычисление нового значения промежутка
+//        if (gap < 1) {
+//            gap = 1;
+//        }
+//
+//        swapped = false;
+//        for (int i = 0; i < _size - gap; i++) {
+//            if (_array[i] > _array[i + gap]) {
+//                std::swap(_array[i], _array[i + gap]);
+//                swapped = true;
+//            }
+//        }
+//    }
+//}
+
+
 // Линейный поиск индекса элемента по передаваемому значению.
 void DynamicArray::LinerSearch(int value) {
     for (int i = 0; i < _size; i++) {
         if (_array[i] == value) {
-            std::cout << "Element index: " << i << std::endl;
+            cout << "Element index: " << i << endl;
             return;
         }
     }
-    std::cout << "The element was not found in the array." << std::endl;
+    cout << "The element was not found in the array." << endl;
 }
 
 // Бинарный поиск индекса элемента по передаваемому значению.
@@ -144,7 +168,7 @@ void DynamicArray::BinarySearch(int value) {
         int middle = (left + right) / 2;
 
         if (_array[middle] == value) {
-            std::cout << "Element index: " << middle << std::endl;
+            cout << "Element index: " << middle << endl;
             return;
         }
         else if (_array[middle] < value) {
@@ -154,5 +178,5 @@ void DynamicArray::BinarySearch(int value) {
             right = middle - 1;
         }
     }
-    std::cout << "The element was not found in the array." << std::endl;
+    cout << "The element was not found in the array." << endl;
 }
