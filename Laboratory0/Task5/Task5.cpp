@@ -230,5 +230,5 @@ void subTask8()
 
 int main()
 {
-	subTask8();
+	subTask7();
 }
