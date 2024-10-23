@@ -106,7 +106,6 @@ void DynamicArray::SortArray() {
     while (swapped) {
         swapped = false;
 
-        // Проход слева направо
         for (int i = left; i < right; i++) {
             if (_array[i] > _array[i + 1]) {
                 swap(_array[i], _array[i + 1]);
@@ -115,7 +114,6 @@ void DynamicArray::SortArray() {
         }
         right--;
 
-        // Проход справа налево
         for (int i = right; i > left; i--) {
             if (_array[i] < _array[i - 1]) {
                 swap(_array[i], _array[i - 1]);
@@ -132,7 +130,7 @@ void DynamicArray::SortArray() {
 //    bool swapped = true;
 //
 //    while (gap > 1 || swapped) {
-//        gap = (gap * 10) / 13; // Вычисление нового значения промежутка
+//        gap = (gap * 10) / 13;
 //        if (gap < 1) {
 //            gap = 1;
 //        }
