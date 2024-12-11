@@ -27,6 +27,15 @@ public:
 	}
 
 	/**
+	* @brief Возвращает размер очереди.
+	* @return Размер очереди.
+	*/
+	size_t GetSize() const
+	{
+		return _stack1.GetSize() + _stack2.GetSize();
+	}
+
+	/**
 	* @brief Добавление элемента в очередь.
 	* @param data Элемент, который нужно добавить.
 	*/
@@ -57,20 +66,28 @@ public:
 	}
 
 	/**
-	* @brief Получение всех данных из очереди в виде вектора.
-	* @return Вектор, содержащий все элементы очереди.  Порядок элементов соответствует порядку добавления в очередь.
+	* @brief Получение всех данных из очереди в виде массива.
+	* @return Массив, содержащий все элементы очереди. Порядок элементов соответствует порядку добавления в очередь.
 	*/
-	std::vector<T> GetData() const
+	T* GetData() const
 	{
-		std::vector<T> data;
+		size_t size1 = _stack1.GetSize();
+		size_t size2 = _stack2.GetSize();
+		size_t current = size1 + size2;
 
-		std::vector<T> data1 = _stack1.GetData();
-		std::reverse(data1.begin(), data1.end());
+		T* data = new T[current];
+		T* data1 = _stack1.GetData();
+		T* data2 = _stack2.GetData();
 
-		std::vector<T> data2 = _stack2.GetData();
+		for (size_t i = 0; i < size2; ++i)
+		{
+			data[i] = data2[i];
+		}
+		for (size_t i = 0; i < size1; ++i)
+		{
+			data[size2 + i] = data1[i];
+		}
 
-		data.insert(data.end(), data1.begin(), data1.end());
-		data.insert(data.end(), data2.begin(), data2.end());
 		return data;
 	}
 };

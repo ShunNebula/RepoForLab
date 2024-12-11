@@ -13,7 +13,7 @@ class RingBuffer
 {
 private:
 	/** @brief Указатель на динамически выделенный массив для хранения данных. */
-	T* _buffer;
+	T* _buffer = new T();
 
 	/** @brief Индекс головного элемента. */
 	size_t _head;
@@ -49,6 +49,23 @@ public:
 	~RingBuffer()
 	{
 		delete[] _buffer;
+	}
+
+	/**
+	* @brief Возвращает размер кольцевого буфера.
+	* @return Размер кольцевого буфера.
+	*/
+	size_t GetSize() const
+	{
+		return _size;
+	}
+
+	/**
+	* @brief Увеличивает объём кольцевого буфера.
+	*/
+	void Resize()
+	{
+		_capacity *= 2;
 	}
 
 	/**
@@ -94,13 +111,16 @@ public:
 	*/
 	void Push(const T& data)
 	{
-		if (IsFull())
-		{
-			throw std::overflow_error("Буфер полон!");
-		}
 		_buffer[_tail] = data;
 		_tail = (_tail + 1) % _capacity;
-		_size++;
+		if (IsFull())
+		{
+			_head = (_head + 1) % _capacity;
+		}
+		else
+		{
+			_size++;
+		}
 	}
 
 	/**
@@ -121,18 +141,21 @@ public:
 	}
 
 	/**
-	* @brief Возвращает данные буфера в виде вектора.
-	* @return Вектор, содержащий данные буфера.
+	* @brief Возвращает данные буфера в виде массива.
+	* @return Массив, содержащий данные буфера.
 	*/
-	std::vector<T> GetData() const
+	T* GetData() const
 	{
-		std::vector<T> data;
-		if (IsEmpty()) return data;
+		if (IsEmpty())
+		{
+			return nullptr;
+		}
 
+		T* data = new T[_size];
 		size_t current = _head;
 		for (size_t i = 0; i < _size; ++i)
 		{
-			data.push_back(_buffer[current]);
+			data[i] = _buffer[current];
 			current = (current + 1) % _capacity;
 		}
 		return data;

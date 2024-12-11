@@ -32,12 +32,14 @@ private:
 	/** @brief Указатель на вершину стека. */
 	Node* _top;
 
+	size_t _size;
+
 public:
 	/**
 	* @brief Конструктор стека.
 	* Создает пустой стек.
 	*/
-	Stack() : _top(nullptr) {}
+	Stack() : _top(nullptr), _size(0) {}
 
 	/**
 	* @brief Деструктор стека.
@@ -49,6 +51,15 @@ public:
 		{
 			Pop();
 		}
+	}
+
+	/**
+	* @brief Возвращает размер стека.
+	* @return Размер стека.
+	*/
+	size_t GetSize() const
+	{
+		return _size;
 	}
 
 	/**
@@ -69,6 +80,7 @@ public:
 		Node* newNode = new Node(data);
 		newNode->next = _top;
 		_top = newNode;
+		_size++;
 	}
 
 	/**
@@ -86,20 +98,26 @@ public:
 		Node* temp = _top;
 		_top = _top->next;
 		delete temp;
+		_size--;
 		return data;
 	}
 
 	/**
-	* @brief Возвращает данные стека в виде вектора.
-	* @return Вектор, содержащий данные стека.
+	* @brief Возвращает данные стека в виде массива.
+	* @return Массив, содержащий данные стека.
 	*/
-	std::vector<T> GetData() const
+	T* GetData() const
 	{
-		std::vector<T> data;
-		Node* current = _top;
-		while (current != nullptr)
+		if (IsEmpty())
 		{
-			data.push_back(current->data);
+			return nullptr;
+		}
+
+		T* data = new T[_size];
+		Node* current = _top;
+		for (size_t i = 0; i < _size; ++i)
+		{
+			data[i] = current->data;
 			current = current->next;
 		}
 		return data;

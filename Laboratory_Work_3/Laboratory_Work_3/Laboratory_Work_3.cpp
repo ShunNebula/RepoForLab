@@ -19,18 +19,38 @@ int CheckValue()
 {
 	std::cout << "Ваш ввод: ";
 
-	int value;
+	std::string input;
 	while (true) 
 	{
-		if (std::cin >> value) 
+		if (std::cin >> input) 
 		{
-			return value;
+			try 
+			{
+				size_t pos;
+				int value = std::stoi(input, &pos);
+				if (pos == input.length()) 
+				{
+					return value;
+				}
+				else 
+				{
+					std::cout << "Введено неверное значение (нечисловые символы). Повторите ввод: ";
+				}
+			}
+			catch (const std::invalid_argument& e)
+			{
+				std::cout << "Введено неверное значение (не число). Повторите ввод: ";
+			}
+			catch (const std::out_of_range& e) 
+			{
+				std::cout << "Введено слишком большое значение. Повторите ввод: ";
+			}
 		}
-		else
+		else 
 		{
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "Введено неверное значение. Повторите ввод: ";
+			std::cout << "Ошибка ввода. Повторите ввод: ";
 		}
 	}
 }
@@ -40,12 +60,12 @@ int CheckValue()
 * @param data Данные для отображения.
 * @param typeName Имя типа данных.
 */
-void Print(const std::vector<int>& data, const std::string& typeName)
+void Print(const int* data, const size_t size, const std::string& typeName)
 {
 	std::cout << std::endl << "Элементы " << typeName << ":" << std::endl;
-	for (int x : data)
+	for (size_t i = 0; i < size; ++i)
 	{
-		std::cout << x << " ";
+		std::cout << data[i] << " ";
 	}
 	std::cout << std::endl << std::endl << "Выберите команду:" << std::endl;
 	std::cout << "0. Выйти в меню" << std::endl;
@@ -64,9 +84,10 @@ void StackMenu()
 	do
 	{
 		std::string typeName = "Stack";
-		std::vector<int> stackData = stack->GetData();
+		int* stackData = stack->GetData();
+		size_t size = stack->GetSize();
 
-		Print(stackData, typeName);
+		Print(stackData, size,  typeName);
 
 		choice = CheckValue();
 		switch (choice)
@@ -117,9 +138,10 @@ void RingBufferMenu()
 	do
 	{
 		std::string typeName = "RingBuffer";
-		std::vector<int> bufferData = buffer->GetData();
+		int* bufferData = buffer->GetData();
+		size_t size = buffer->GetSize();
 
-		Print(bufferData, typeName);
+		Print(bufferData, size, typeName);
 
 		std::cout << "3. Свободное место" << std::endl;
 		std::cout << "4. Занятое место" << std::endl;
@@ -129,17 +151,10 @@ void RingBufferMenu()
 		{
 		case 1:
 		{
-			try
-			{
-				int value;
-				std::cout << "Введите значение для элемента: ";
-				value = CheckValue();
-				buffer->Push(value);
-			}
-			catch (const std::overflow_error& error)
-			{
-				std::cout << error.what() << std::endl;
-			}
+			int value;
+			std::cout << "Введите значение для элемента: ";
+			value = CheckValue();
+			buffer->Push(value);
 			break;
 		}
 		case 2:
@@ -189,26 +204,20 @@ void QueueRingBufferMenu()
 	do
 	{
 		std::string typeName = "QueueRingBuffer";
-		std::vector<int> queueData = queue->GetData();
+		int* queueData = queue->GetData();
+		size_t size = queue->GetSize();
 
-		Print(queueData, typeName);
+		Print(queueData, size, typeName);
 
 		choice = CheckValue();
 		switch (choice)
 		{
 		case 1:
 		{
-			try
-			{
-				int value;
-				std::cout << "Введите значение для элемента: ";
-				value = CheckValue();
-				queue->Enqueue(value);
-			}
-			catch (const std::overflow_error& error)
-			{
-				std::cout << error.what() << std::endl;
-			}
+			int value;
+			std::cout << "Введите значение для элемента: ";
+			value = CheckValue();
+			queue->Enqueue(value);
 			break;
 		}
 		case 2:
@@ -248,9 +257,10 @@ void QueueTwoStacksMenu()
 	do
 	{
 		std::string typeName = "QueueTwoStacks";
-		std::vector<int> queueData = queue->GetData();
+		int* queueData = queue->GetData();
+		size_t size = queue->GetSize();
 
-		Print(queueData, typeName);
+		Print(queueData, size, typeName);
 
 		choice = CheckValue();
 		switch (choice)

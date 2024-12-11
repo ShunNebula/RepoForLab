@@ -13,12 +13,14 @@ private:
 	/** @brief Кольцевой буфер, используемый для реализации очереди. */
 	RingBuffer<T> _buffer;
 
+	size_t _size;
+
 public:
 	/**
 	* @brief Конструктор очереди.
 	* @param capacity Емкость кольцевого буфера.
 	*/
-	explicit QueueRingBuffer(size_t capacity) : _buffer(capacity) {}
+	QueueRingBuffer(size_t capacity) : _buffer(capacity), _size(0) {}
 
 	/**
 	* @brief Проверка на пустоту очереди.
@@ -33,12 +35,26 @@ public:
 	bool IsFull() const { return _buffer.IsFull(); }
 
 	/**
+	* @brief Возвращает размер очереди.
+	* @return Размер очереди.
+	*/
+	size_t GetSize() const
+	{
+		return _size;
+	}
+
+	/**
 	* @brief Добавление элемента в очередь.
 	* @param data Элемент, который нужно добавить.
 	*/
 	void Enqueue(const T& data)
 	{
+		if (_buffer.FreeSpace() == 1)
+		{
+			_buffer.Resize();
+		}
 		_buffer.Push(data);
+		_size++;
 	}
 
 	/**
@@ -52,14 +68,15 @@ public:
 		{
 			throw std::underflow_error("Очередь пуста!");
 		}
+		_size--;
 		return _buffer.Pop();
 	}
 
 	/**
-	* @brief Возвращает все данные очереди в виде вектора.
-	* @return Вектор, содержащий данные очереди.
+	* @brief Возвращает все данные очереди в виде массива.
+	* @return Массив, содержащий данные очереди.
 	*/
-	std::vector<T> GetData() const
+	T* GetData() const
 	{
 		return _buffer.GetData();
 	}
