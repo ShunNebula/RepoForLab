@@ -13,6 +13,7 @@ private:
 	/** @brief Кольцевой буфер, используемый для реализации очереди. */
 	RingBuffer<T> _buffer;
 
+	/** @brief Текущий размер очереди. */
 	size_t _size;
 
 public:

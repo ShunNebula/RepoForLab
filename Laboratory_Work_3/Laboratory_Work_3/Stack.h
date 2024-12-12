@@ -32,6 +32,7 @@ private:
 	/** @brief Указатель на вершину стека. */
 	Node* _top;
 
+	/** Текущий рамер стека. */
 	size_t _size;
 
 public:

@@ -1,13 +1,11 @@
 ﻿#include <iostream>
 #include <string>
-#include <vector>
 #include <stdexcept>
 #include <limits>
 #include "Stack.h"
 #include "RingBuffer.h"
 #include "QueueRingBuffer.h"
 #include "QueueTwoStacks.h"
-
 
 /**
  * @brief Функция для проверки ввода целого числа пользователем.
@@ -87,7 +85,7 @@ void StackMenu()
 		int* stackData = stack->GetData();
 		size_t size = stack->GetSize();
 
-		Print(stackData, size,  typeName);
+		Print(stackData, size, typeName);
 
 		choice = CheckValue();
 		switch (choice)
