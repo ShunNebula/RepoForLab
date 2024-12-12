@@ -303,7 +303,7 @@ void QueueTwoStacksMenu()
 */
 int main()
 {
-	setlocale(LC_ALL, "");
+	std::locale::global(std::locale("Russian"));
 
 	int menuChoice;
 	do
