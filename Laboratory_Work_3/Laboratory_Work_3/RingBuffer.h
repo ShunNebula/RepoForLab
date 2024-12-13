@@ -4,49 +4,47 @@
 #include <stdexcept>
 #include <vector>
 
-// TODO: Полетела кодироквка русских символов
 /**
-* @brief Øàáëîííûé êëàññ äëÿ ðåàëèçàöèè äèíàìè÷åñêîãî êîëüöåâîãî áóôåðà.
-* @tparam T Òèï äàííûõ, õðàíÿùèõñÿ â áóôåðå.
+* @brief Шаблонный класс для реализации динамического кольцевого буфера.
+* @tparam T Тип данных, хранящихся в буфере.
 */
 template <typename T>
 class RingBuffer
 {
 private:
-	/** @brief Óêàçàòåëü íà äèíàìè÷åñêè âûäåëåííûé ìàññèâ äëÿ õðàíåíèÿ äàííûõ. */
+	/** @brief Указатель на динамически выделенный массив для хранения данных. */
 	T* _buffer = new T();
 
-	/** @brief Èíäåêñ ãîëîâíîãî ýëåìåíòà. */
+	/** @brief Индекс головного элемента. */
 	size_t _head;
 
-	/** @brief Èíäåêñ õâîñòîâîãî ýëåìåíòà. */
+	/** @brief Индекс хвостового элемента. */
 	size_t _tail;
 
-	/** @brief Òåêóùèé ðàçìåð áóôåðà. */
+	/** @brief Текущий размер буфера. */
 	size_t _size;
 
-	/** @brief Òåêóùàÿ åìêîñòü áóôåðà. */
+	/** @brief Текущая емкость буфера. */
 	size_t _capacity;
 
 public:
-	// TODO: RSDN
 	/**
-	* @brief Êîíñòðóêòîð êîëüöåâîãî áóôåðà.
-	* @param capacity Íà÷àëüíàÿ åìêîñòü áóôåðà.
-	* @throw std::invalid_argument Åñëè capacity ðàâíî íóëþ èëè ìåíüøå.
+	* @brief Конструктор кольцевого буфера.
+	* @param capacity Начальная емкость буфера.
+	* @throw std::invalid_argument Если capacity равно нулю или меньше.
 	*/
 	explicit RingBuffer(size_t capacity) : _head(0), _tail(0), _size(0), _capacity(capacity)
 	{
 		if (capacity <= 0)
 		{
-			throw std::invalid_argument("capacity äîëæíî áûòü áîëüøå íóëÿ");
+			throw std::invalid_argument("capacity должно быть больше нуля");
 		}
 		_buffer = new T[capacity];
 	}
 
 	/**
-	* @brief Äåñòðóêòîð êîëüöåâîãî áóôåðà.
-	* Îñâîáîæäàåò äèíàìè÷åñêè âûäåëåííóþ ïàìÿòü.
+	* @brief Деструктор кольцевого буфера.
+	* Освобождает динамически выделенную память.
 	*/
 	~RingBuffer()
 	{
@@ -54,8 +52,8 @@ public:
 	}
 
 	/**
-	* @brief Âîçâðàùàåò ðàçìåð êîëüöåâîãî áóôåðà.
-	* @return Ðàçìåð êîëüöåâîãî áóôåðà.
+	* @brief Возвращает размер кольцевого буфера.
+	* @return Размер кольцевого буфера.
 	*/
 	size_t GetSize() const
 	{
@@ -63,7 +61,7 @@ public:
 	}
 
 	/**
-	* @brief Óâåëè÷èâàåò îáú¸ì êîëüöåâîãî áóôåðà.
+	* @brief Увеличивает объём кольцевого буфера.
 	*/
 	void Resize()
 	{
@@ -71,8 +69,8 @@ public:
 	}
 
 	/**
-	* @brief Ïðîâåðêà íà ïóñòîòó áóôåðà.
-	* @return true, åñëè áóôåð ïóñò; false â ïðîòèâíîì ñëó÷àå.
+	* @brief Проверка на пустоту буфера.
+	* @return true, если буфер пуст; false в противном случае.
 	*/
 	bool IsEmpty() const
 	{
@@ -80,8 +78,8 @@ public:
 	}
 
 	/**
-	* @brief Ïðîâåðêà íà çàïîëíåííîñòü áóôåðà.
-	* @return true, åñëè áóôåð ïîëîí; false â ïðîòèâíîì ñëó÷àå.
+	* @brief Проверка на заполненность буфера.
+	* @return true, если буфер полон; false в противном случае.
 	*/
 	bool IsFull() const
 	{
@@ -89,8 +87,8 @@ public:
 	}
 
 	/**
-	* @brief Âîçâðàùàåò êîëè÷åñòâî ñâîáîäíîãî ìåñòà â áóôåðå.
-	* @return Êîëè÷åñòâî ñâîáîäíûõ ÿ÷ååê.
+	* @brief Возвращает количество свободного места в буфере.
+	* @return Количество свободных ячеек.
 	*/
 	size_t FreeSpace() const
 	{
@@ -98,8 +96,8 @@ public:
 	}
 
 	/**
-	* @brief Âîçâðàùàåò êîëè÷åñòâî çàíÿòûõ ÿ÷ååê â áóôåðå.
-	* @return Êîëè÷åñòâî çàíÿòûõ ÿ÷ååê.
+	* @brief Возвращает количество занятых ячеек в буфере.
+	* @return Количество занятых ячеек.
 	*/
 	size_t UsedSpace() const
 	{
@@ -107,9 +105,9 @@ public:
 	}
 
 	/**
-	* @brief Äîáàâëåíèå ýëåìåíòà â áóôåð.
-	* @param data Ýëåìåíò äëÿ äîáàâëåíèÿ.
-	* @throw std::overflow_error Åñëè áóôåð ïîëîí.
+	* @brief Добавление элемента в буфер.
+	* @param data Элемент для добавления.
+	* @throw std::overflow_error Если буфер полон.
 	*/
 	void Push(const T& data)
 	{
@@ -125,17 +123,16 @@ public:
 		}
 	}
 
-	// TODO: RSDN
 	/**
-	* @brief Èçâëå÷åíèå ýëåìåíòà èç áóôåðà.
-	* @return Èçâëå÷åííûé ýëåìåíò.
-	* @throw std::underflow_error Åñëè áóôåð ïóñò.
+	* @brief Извлечение элемента из буфера.
+	* @return Извлеченный элемент.
+	* @throw std::underflow_error Если буфер пуст.
 	*/
 	T Pop()
 	{
 		if (IsEmpty())
 		{
-			throw std::underflow_error("Áóôåð ïóñò!");
+			throw std::underflow_error("Буфер пуст!");
 		}
 		T data = _buffer[_head];
 		_head = (_head + 1) % _capacity;
@@ -143,10 +140,9 @@ public:
 		return data;
 	}
 
-	// TODO: RSDN
 	/**
-	* @brief Âîçâðàùàåò äàííûå áóôåðà â âèäå ìàññèâà.
-	* @return Ìàññèâ, ñîäåðæàùèé äàííûå áóôåðà.
+	* @brief Возвращает данные буфера в виде массива.
+	* @return Массив, содержащий данные буфера.
 	*/
 	T* GetData() const
 	{
