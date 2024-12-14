@@ -2,10 +2,10 @@
 #include <string>
 #include <stdexcept>
 #include <limits>
-#include "Stack.h"
-#include "RingBuffer.h"
-#include "QueueRingBuffer.h"
-#include "QueueTwoStacks.h"
+#include "../Header/RingBuffer.h"
+#include "../Header/QueueRingBuffer.h"
+#include "../Header/QueueTwoStacks.h"
+#include "../Header/Stack.h"
 
 // TODO: Нахождения файлов в файловой системе отличается от Solution Explorer
 /**
