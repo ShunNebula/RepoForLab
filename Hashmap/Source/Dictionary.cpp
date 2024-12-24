@@ -1,4 +1,4 @@
-﻿#include "../Header/Dictionary.h"
+#include "../Header/Dictionary.h"
 
 using namespace std;
 

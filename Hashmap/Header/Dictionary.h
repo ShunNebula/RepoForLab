@@ -4,60 +4,60 @@
 #include <iostream>
 
 /// <summary>
-/// Класс для работы со словарём.
+/// РљР»Р°СЃСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ СЃР»РѕРІР°СЂС‘Рј.
 /// </summary>
 class Dictionary
 {
 private:
 	/// <summary>
-	/// Хэш-таблица для хранения данных.
+	/// РҐСЌС€-С‚Р°Р±Р»РёС†Р° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С….
 	/// </summary>
 	HashTable _dictionary;
 
 public:
 	/// <summary>
-	/// Конструктор словаря.
+	/// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃР»РѕРІР°СЂСЏ.
 	/// </summary>
-	/// <param name="initialSize">Размер словаря.</param>
-	/// <param name="loadFactor">Максимальный коэфициент заполнения.</param>
+	/// <param name="initialSize">Р Р°Р·РјРµСЂ СЃР»РѕРІР°СЂСЏ.</param>
+	/// <param name="loadFactor">РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РєРѕСЌС„РёС†РёРµРЅС‚ Р·Р°РїРѕР»РЅРµРЅРёСЏ.</param>
 	Dictionary(size_t initialSize = 11, double loadFactor = 0.75);
 
 	/// <summary>
-	/// Добавляет элемент в словарь.
+	/// Р”РѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ РІ СЃР»РѕРІР°СЂСЊ.
 	/// </summary>
-	/// <param name="key">Ключ.</param>
-	/// <param name="value">Значение элемента.</param>
+	/// <param name="key">РљР»СЋС‡.</param>
+	/// <param name="value">Р—РЅР°С‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°.</param>
 	void Insert(const std::string& key, const std::string& value);
 
 	/// <summary>
-	/// Удаление элементе по ключу.
+	/// РЈРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚Рµ РїРѕ РєР»СЋС‡Сѓ.
 	/// </summary>
-	/// <param name="key">Ключ.</param>
+	/// <param name="key">РљР»СЋС‡.</param>
 	void Remove(const std::string& key);
 
 	/// <summary>
-	/// Поиск значения по ключу.
+	/// РџРѕРёСЃРє Р·РЅР°С‡РµРЅРёСЏ РїРѕ РєР»СЋС‡Сѓ.
 	/// </summary>
-	/// <param name="key">Ключ.</param>
-	/// <returns>Искомое значение.</returns>
+	/// <param name="key">РљР»СЋС‡.</param>
+	/// <returns>РСЃРєРѕРјРѕРµ Р·РЅР°С‡РµРЅРёРµ.</returns>
 	std::string Find(const std::string& key);
 
 	/// <summary>
-	/// Возвращает размер словаря.
+	/// Р’РѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РјРµСЂ СЃР»РѕРІР°СЂСЏ.
 	/// </summary>
-	/// <returns>Размер таблицы.</returns>
+	/// <returns>Р Р°Р·РјРµСЂ С‚Р°Р±Р»РёС†С‹.</returns>
 	size_t GetSize() const;
 
 	/// <summary>
-	/// Возвращает количество элементов.
+	/// Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ.
 	/// </summary>
-	/// <returns>Количество элементов.</returns>
+	/// <returns>РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ.</returns>
 	size_t GetCount() const;
 
 	/// <summary>
-	/// Возвращает бакет по индексу в словаре.
+	/// Р’РѕР·РІСЂР°С‰Р°РµС‚ Р±Р°РєРµС‚ РїРѕ РёРЅРґРµРєСЃСѓ РІ СЃР»РѕРІР°СЂРµ.
 	/// </summary>
-	/// <param name="index">Получаемый индекс.</param>
-	/// <returns>Искомый бакет.</returns>
+	/// <param name="index">РџРѕР»СѓС‡Р°РµРјС‹Р№ РёРЅРґРµРєСЃ.</param>
+	/// <returns>РСЃРєРѕРјС‹Р№ Р±Р°РєРµС‚.</returns>
 	Node* GetBucket(size_t index) const;
 };
