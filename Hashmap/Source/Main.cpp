@@ -1,4 +1,4 @@
-#include "Dictionary.h"
+#include "../Header/Dictionary.h"
 #include <iostream>
 #include <string>
 
@@ -99,17 +99,6 @@ void PrintDictionary(const Dictionary& dict)
 	}
 }
 
-/// <summary>
-/// Вывод таблицы и словаря.
-/// </summary>
-/// <param name="dict">Словарь.</param>
-void Print(const Dictionary& dict)
-{
-	PrintTable(dict);
-	cout << endl;
-	PrintDictionary(dict);
-}
-
 int main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -129,7 +118,6 @@ int main()
 		cout << "4. Вывести хеш-таблицу" << endl;
 		cout << "5. Вывести словарь" << endl;
 		cout << "0. Выход" << endl;
-		cout << "Выберите действие: ";
 		
 		choice = CheckValue();
 		switch (choice)
@@ -142,7 +130,6 @@ int main()
 			cin >> value;
 			dict.Insert(key, value);
 			cout << "Элемент добавлен.\n";
-			Print(dict);
 			break;
 		}
 		case 2:
@@ -150,7 +137,6 @@ int main()
 			cout << "Введите ключ для удаления: ";
 			cin >> key;
 			dict.Remove(key);
-			Print(dict);
 			break;
 		}
 		case 3:

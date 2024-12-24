@@ -1,14 +1,15 @@
-﻿#include "Dictionary.h"
+#include "../Header/HashTable.h"
 
 using namespace std;
 
-Dictionary::Dictionary(size_t initialSize, double loadFactor) : _size(initialSize), _maxLoadFactor(loadFactor), _count(0)
+HashTable::HashTable(size_t initialSize, double loadFactor) 
+	: _size(initialSize), _maxLoadFactor(loadFactor), _count(0)
 {
-	_table = new Node*[_size];
+	_table = new Node * [_size];
 	memset(_table, 0, _size * sizeof(Node*));
 }
 
-Dictionary::~Dictionary()
+HashTable::~HashTable()
 {
 	for (size_t i = 0; i < _size; ++i)
 	{
@@ -24,7 +25,7 @@ Dictionary::~Dictionary()
 	delete[] _table;
 }
 
-size_t Dictionary::GetHash(std::string key)
+size_t HashTable::GetHash(std::string key)
 {
 	size_t hashValue = 0;
 	for (char c : key)
@@ -35,12 +36,12 @@ size_t Dictionary::GetHash(std::string key)
 	return hashValue;
 }
 
-size_t Dictionary::GetIndex(std::string key) const
+size_t HashTable::GetIndex(std::string key) const
 {
 	return GetHash(key) % _size;
 }
 
-void Dictionary::Rehash()
+void HashTable::Rehash()
 {
 	size_t oldSize = _size;
 	_size *= 2;
@@ -66,7 +67,7 @@ void Dictionary::Rehash()
 	_table = newTable;
 }
 
-void Dictionary::Insert(const std::string& key, const std::string& value)
+void HashTable::Insert(const std::string& key, const std::string& value)
 {
 	size_t index = GetIndex(key);
 
@@ -82,14 +83,14 @@ void Dictionary::Insert(const std::string& key, const std::string& value)
 	newNode->next = _table[index];
 	_table[index] = newNode;
 	_count++;
-	
+
 	if (static_cast<double>(_count) / _size >= _maxLoadFactor)
 	{
 		Rehash();
 	}
 }
 
-void Dictionary::Remove(const std::string& key)
+void HashTable::Remove(const std::string& key)
 {
 	size_t index = GetIndex(key);
 	Node* current = _table[index];
@@ -117,7 +118,7 @@ void Dictionary::Remove(const std::string& key)
 	}
 }
 
-std::string Dictionary::Find(const std::string& key) 
+std::string HashTable::Find(const std::string& key)
 {
 	size_t index = GetIndex(key);
 
@@ -132,17 +133,17 @@ std::string Dictionary::Find(const std::string& key)
 	return "";
 }
 
-size_t Dictionary::GetSize() const
+size_t HashTable::GetSize() const
 {
 	return _size;
 }
 
-size_t Dictionary::GetCount() const
+size_t HashTable::GetCount() const
 {
 	return _count;
 }
 
-Node* Dictionary::GetBucket(size_t index) const
+Node* HashTable::GetBucket(size_t index) const
 {
 	return _table[index];
 }

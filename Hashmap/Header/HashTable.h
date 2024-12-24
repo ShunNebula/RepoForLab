@@ -31,9 +31,9 @@ struct Node
 };
 
 /// <summary>
-/// Класс Dictionary реализует словарь.
+/// Класс HashTable реализует хэш-таблицу.
 /// </summary>
-class Dictionary
+class HashTable
 {
 private:
 	/// <summary>
@@ -76,19 +76,19 @@ private:
 	void Rehash();
 public:
 	/// <summary>
-	/// Конструктор словаря.
+	/// Конструктор хэш-таблицы.
 	/// </summary>
 	/// <param name="initialSize">Размер таблицы.</param>
 	/// <param name="loadFactor">Максимальный коэфициент заполнения.</param>
-	Dictionary(size_t initialSize = 11, double loadFactor = 0.75);
+	HashTable(size_t initialSize = 11, double loadFactor = 0.75);
 
 	/// <summary>
-	/// Деконстркутор словаря.
+	/// Деконстркутор хэш-таблицы.
 	/// </summary>
-	~Dictionary();
+	~HashTable();
 
 	/// <summary>
-	/// Добавляет элемент в словарь.
+	/// Добавляет элемент в хэш-таблицу.
 	/// </summary>
 	/// <param name="key">Ключ.</param>
 	/// <param name="value">Значение элемента.</param>
