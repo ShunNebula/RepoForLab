@@ -3,126 +3,126 @@
 #include <iostream>
 
 /// <summary>
-/// Структура для хранения пары ключ-значение.
+/// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РїР°СЂС‹ РєР»СЋС‡-Р·РЅР°С‡РµРЅРёРµ.
 /// </summary>
 struct Node
 {
 	/// <summary>
-	/// Ключ.
+	/// РљР»СЋС‡.
 	/// </summary>
 	std::string key;
 
 	/// <summary>
-	/// Значение.
+	/// Р—РЅР°С‡РµРЅРёРµ.
 	/// </summary>
 	std::string value;
 
 	/// <summary>
-	/// Указатель на следующую пару.
+	/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ РїР°СЂСѓ.
 	/// </summary>
 	Node* next;
 
 	/// <summary>
-	/// Конструктор элемента словаря (ключ-значение).
+	/// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЌР»РµРјРµРЅС‚Р° СЃР»РѕРІР°СЂСЏ (РєР»СЋС‡-Р·РЅР°С‡РµРЅРёРµ).
 	/// </summary>
-	/// <param name="k">Ключ.</param>
-	/// <param name="v">Значение.</param>
+	/// <param name="k">РљР»СЋС‡.</param>
+	/// <param name="v">Р—РЅР°С‡РµРЅРёРµ.</param>
 	Node(const std::string& k, const std::string v) : key(k), value(v), next(nullptr) {}
 };
 
 /// <summary>
-/// Класс HashTable реализует хэш-таблицу.
+/// РљР»Р°СЃСЃ HashTable СЂРµР°Р»РёР·СѓРµС‚ С…СЌС€-С‚Р°Р±Р»РёС†Сѓ.
 /// </summary>
 class HashTable
 {
 private:
 	/// <summary>
-	/// Хэш-таблица (массив указателей на списки).
+	/// РҐСЌС€-С‚Р°Р±Р»РёС†Р° (РјР°СЃСЃРёРІ СѓРєР°Р·Р°С‚РµР»РµР№ РЅР° СЃРїРёСЃРєРё).
 	/// </summary>
 	Node** _table;
 
 	/// <summary>
-	/// Размер таблицы.
+	/// Р Р°Р·РјРµСЂ С‚Р°Р±Р»РёС†С‹.
 	/// </summary>
 	size_t _size;
 
 	/// <summary>
-	/// Максимальный коэфициент заполнения.
+	/// РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РєРѕСЌС„РёС†РёРµРЅС‚ Р·Р°РїРѕР»РЅРµРЅРёСЏ.
 	/// </summary>
 	double _maxLoadFactor;
 
 	/// <summary>
-	/// Текущее количество элементов.
+	/// РўРµРєСѓС‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ.
 	/// </summary>
 	size_t _count;
 
 	/// <summary>
-	/// Хэш-функция (Прямой метод Пирсена).
+	/// РҐСЌС€-С„СѓРЅРєС†РёСЏ (РџСЂСЏРјРѕР№ РјРµС‚РѕРґ РџРёСЂСЃРµРЅР°).
 	/// </summary>
-	/// <param name="key">Ключ.</param>
-	/// <returns>Хэш в виде числа.</returns>
+	/// <param name="key">РљР»СЋС‡.</param>
+	/// <returns>РҐСЌС€ РІ РІРёРґРµ С‡РёСЃР»Р°.</returns>
 	size_t static GetHash(std::string key);
 
 	/// <summary>
-	/// Преобразование в индекс массива.
+	/// РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РІ РёРЅРґРµРєСЃ РјР°СЃСЃРёРІР°.
 	/// </summary>
-	/// <param name="hash">Хэш в виде числа.</param>
-	/// <returns>Индекс массива.</returns>
+	/// <param name="hash">РҐСЌС€ РІ РІРёРґРµ С‡РёСЃР»Р°.</param>
+	/// <returns>РРЅРґРµРєСЃ РјР°СЃСЃРёРІР°.</returns>
 	size_t GetIndex(std::string key) const;
 
 	/// <summary>
-	/// Перехеширование
+	/// РџРµСЂРµС…РµС€РёСЂРѕРІР°РЅРёРµ
 	/// </summary>
 	void Rehash();
 public:
 	/// <summary>
-	/// Конструктор хэш-таблицы.
+	/// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ С…СЌС€-С‚Р°Р±Р»РёС†С‹.
 	/// </summary>
-	/// <param name="initialSize">Размер таблицы.</param>
-	/// <param name="loadFactor">Максимальный коэфициент заполнения.</param>
+	/// <param name="initialSize">Р Р°Р·РјРµСЂ С‚Р°Р±Р»РёС†С‹.</param>
+	/// <param name="loadFactor">РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РєРѕСЌС„РёС†РёРµРЅС‚ Р·Р°РїРѕР»РЅРµРЅРёСЏ.</param>
 	HashTable(size_t initialSize = 11, double loadFactor = 0.75);
 
 	/// <summary>
-	/// Деконстркутор хэш-таблицы.
+	/// Р”РµРєРѕРЅСЃС‚СЂРєСѓС‚РѕСЂ С…СЌС€-С‚Р°Р±Р»РёС†С‹.
 	/// </summary>
 	~HashTable();
 
 	/// <summary>
-	/// Добавляет элемент в хэш-таблицу.
+	/// Р”РѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ РІ С…СЌС€-С‚Р°Р±Р»РёС†Сѓ.
 	/// </summary>
-	/// <param name="key">Ключ.</param>
-	/// <param name="value">Значение элемента.</param>
+	/// <param name="key">РљР»СЋС‡.</param>
+	/// <param name="value">Р—РЅР°С‡РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°.</param>
 	void Insert(const std::string& key, const std::string& value);
 
 	/// <summary>
-	/// Удаление элементе по ключу.
+	/// РЈРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚Рµ РїРѕ РєР»СЋС‡Сѓ.
 	/// </summary>
-	/// <param name="key">Ключ.</param>
+	/// <param name="key">РљР»СЋС‡.</param>
 	void Remove(const std::string& key);
 
 	/// <summary>
-	/// Поиск значения по ключу.
+	/// РџРѕРёСЃРє Р·РЅР°С‡РµРЅРёСЏ РїРѕ РєР»СЋС‡Сѓ.
 	/// </summary>
-	/// <param name="key">Ключ.</param>
-	/// <returns>Искомое значение.</returns>
+	/// <param name="key">РљР»СЋС‡.</param>
+	/// <returns>РСЃРєРѕРјРѕРµ Р·РЅР°С‡РµРЅРёРµ.</returns>
 	std::string Find(const std::string& key);
 
 	/// <summary>
-	/// Возвращает размер таблицы.
+	/// Р’РѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РјРµСЂ С‚Р°Р±Р»РёС†С‹.
 	/// </summary>
-	/// <returns>Размер таблицы.</returns>
+	/// <returns>Р Р°Р·РјРµСЂ С‚Р°Р±Р»РёС†С‹.</returns>
 	size_t GetSize() const;
 
 	/// <summary>
-	/// Возвращает количество элементов.
+	/// Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ.
 	/// </summary>
-	/// <returns>Количество элементов.</returns>
+	/// <returns>РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ.</returns>
 	size_t GetCount() const;
 
 	/// <summary>
-	/// Возвращает бакет по индексу.
+	/// Р’РѕР·РІСЂР°С‰Р°РµС‚ Р±Р°РєРµС‚ РїРѕ РёРЅРґРµРєСЃСѓ.
 	/// </summary>
-	/// <param name="index">Получаемый индекс.</param>
-	/// <returns>Искомый бакет.</returns>
+	/// <param name="index">РџРѕР»СѓС‡Р°РµРјС‹Р№ РёРЅРґРµРєСЃ.</param>
+	/// <returns>РСЃРєРѕРјС‹Р№ Р±Р°РєРµС‚.</returns>
 	Node* GetBucket(size_t index) const;
 };
