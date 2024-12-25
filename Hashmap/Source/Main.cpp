@@ -102,11 +102,11 @@ void PrintDictionary(const Dictionary& dict)
 
 int main()
 {
-	setlocale(LC_ALL, "Russian");
-
 	Dictionary dict;
 
 	int choice;
+
+	// TODO: Внести ключ и значение в тело case
 	string key;
 	string value;
 

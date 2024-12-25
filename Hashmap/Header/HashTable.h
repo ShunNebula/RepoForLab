@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-
+// TODO: Один класс/структура - один файл
 /// <summary>
 /// Структура для хранения пары ключ-значение.
 /// </summary>
@@ -80,6 +80,7 @@ public:
 	/// </summary>
 	/// <param name="initialSize">Размер таблицы.</param>
 	/// <param name="loadFactor">Максимальный коэфициент заполнения.</param>
+	/// // TODO: Вынести в константы
 	HashTable(size_t initialSize = 11, double loadFactor = 0.75);
 
 	/// <summary>
