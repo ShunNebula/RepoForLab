@@ -31,7 +31,7 @@ size_t HashTable::GetHash(std::string key)
 	for (char c : key)
 	{
 		// TODO: Магические числа. Вынести в константу.
-		hashValue = (hashValue * 1664525) + static_cast<unsigned char>(c) + 1013904223;
+		hashValue = (hashValue * HASH_CONSTANT1) + static_cast<unsigned char>(c) + HASH_CONSTANT2;
 	}
 
 	return hashValue;
@@ -50,7 +50,11 @@ void HashTable::Rehash()
 	// TODO: не нужно использовать такую функцию для сложных структур данных
 	// https://habr.com/ru/articles/272269/
 	// TODO: Либо нужно привести аргументы необходимости этой функции
-	memset(newTable, 0, _size * sizeof(Node*));
+	// memset(newTable, 0, _size * sizeof(Node*));
+
+	for (size_t i = 0; i < _size; ++i) {
+		newTable[i] = nullptr;
+	}
 
 	for (size_t i = 0; i < oldSize; ++i)
 	{

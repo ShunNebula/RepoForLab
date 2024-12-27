@@ -102,13 +102,13 @@ void PrintDictionary(const Dictionary& dict)
 
 int main()
 {
+	setlocale(LC_ALL, "ru_RU.UTF-8");
+
 	Dictionary dict;
 
 	int choice;
 
 	// TODO: Внести ключ и значение в тело case
-	string key;
-	string value;
 
 	do
 	{
@@ -125,6 +125,8 @@ int main()
 		{
 		case 1:
 		{
+			string key;
+			string value;
 			cout << "Введите ключ: ";
 			cin >> key;
 			cout << "Введите значение: ";
@@ -135,6 +137,7 @@ int main()
 		}
 		case 2:
 		{
+			string key;
 			cout << "Введите ключ для удаления: ";
 			cin >> key;
 			dict.Remove(key);
@@ -142,6 +145,8 @@ int main()
 		}
 		case 3:
 		{
+			string key;
+			string value;
 			cout << "Введите ключ для поиска: ";
 			cin >> key;
 			value = dict.Find(key);

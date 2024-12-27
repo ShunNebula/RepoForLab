@@ -21,7 +21,7 @@ public:
 	/// <param name="initialSize">Размер словаря.</param>
 	/// <param name="loadFactor">Максимальный коэфициент заполнения.</param>
 	// TODO: Вынести в константы
-	Dictionary(size_t initialSize = 11, double loadFactor = 0.75);
+	Dictionary(size_t initialSize = INITIAL_TABLE_SIZE, double loadFactor = MAX_LOAD_FACTOR);
 
 	/// <summary>
 	/// Добавляет элемент в словарь.

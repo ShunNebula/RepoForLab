@@ -1,34 +1,27 @@
 #pragma once
 
 #include <iostream>
-// TODO: Один класс/структура - один файл
+#include "../Header/HashTableNode.h"
+
 /// <summary>
-/// Структура для хранения пары ключ-значение.
+/// Начальный размер таблицы для инициализации.
 /// </summary>
-struct Node
-{
-	/// <summary>
-	/// Ключ.
-	/// </summary>
-	std::string key;
+const size_t INITIAL_TABLE_SIZE = 11;
 
-	/// <summary>
-	/// Значение.
-	/// </summary>
-	std::string value;
+/// <summary>
+/// Максимальный коэффициент заполнения таблицы (load factor) для инициализации.
+/// </summary>
+const double MAX_LOAD_FACTOR = 0.75;
 
-	/// <summary>
-	/// Указатель на следующую пару.
-	/// </summary>
-	Node* next;
+/// <summary>
+/// Первая константа, используемая в хеш-функции (прямой метод Пирсена).
+/// </summary>
+const size_t HASH_CONSTANT1 = 1664525;
 
-	/// <summary>
-	/// Конструктор элемента словаря (ключ-значение).
-	/// </summary>
-	/// <param name="k">Ключ.</param>
-	/// <param name="v">Значение.</param>
-	Node(const std::string& k, const std::string v) : key(k), value(v), next(nullptr) {}
-};
+/// <summary>
+/// Вторая константа, используемая в хеш-функции (прямой метод Пирсена).
+/// </summary>
+const size_t HASH_CONSTANT2 = 1013904223;
 
 /// <summary>
 /// Класс HashTable реализует хэш-таблицу.
@@ -81,7 +74,7 @@ public:
 	/// <param name="initialSize">Размер таблицы.</param>
 	/// <param name="loadFactor">Максимальный коэфициент заполнения.</param>
 	/// // TODO: Вынести в константы
-	HashTable(size_t initialSize = 11, double loadFactor = 0.75);
+	HashTable(size_t initialSize = INITIAL_TABLE_SIZE, double loadFactor = MAX_LOAD_FACTOR);
 
 	/// <summary>
 	/// Деконстркутор хэш-таблицы.
