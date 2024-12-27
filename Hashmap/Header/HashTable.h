@@ -1,28 +1,28 @@
 #pragma once
 
 #include <iostream>
-#include "../Header/HashTableNode.h"
+#include "../Header/Node.h"
 
 /// <summary>
 /// Начальный размер таблицы для инициализации.
 /// </summary>
 // TODO: RSDN (пересмотреть везде)
-const size_t INITIAL_TABLE_SIZE = 11;
+const size_t InitialTableSize = 11;
 
 /// <summary>
 /// Максимальный коэффициент заполнения таблицы (load factor) для инициализации.
 /// </summary>
-const double MAX_LOAD_FACTOR = 0.75;
+const double MaxLoadFactor = 0.75;
 
 /// <summary>
 /// Первая константа, используемая в хеш-функции (прямой метод Пирсена).
 /// </summary>
-const size_t HASH_CONSTANT1 = 1664525;
+const size_t HashConstant1 = 1664525;
 
 /// <summary>
 /// Вторая константа, используемая в хеш-функции (прямой метод Пирсена).
 /// </summary>
-const size_t HASH_CONSTANT2 = 1013904223;
+const size_t HashConstant2 = 1013904223;
 
 /// <summary>
 /// Класс HashTable реализует хэш-таблицу.
@@ -74,7 +74,7 @@ public:
 	/// </summary>
 	/// <param name="initialSize">Размер таблицы.</param>
 	/// <param name="loadFactor">Максимальный коэфициент заполнения.</param>
-	HashTable(size_t initialSize = INITIAL_TABLE_SIZE, double loadFactor = MAX_LOAD_FACTOR);
+	HashTable(size_t initialSize = InitialTableSize, double loadFactor = MaxLoadFactor);
 
 	/// <summary>
 	/// Деконстркутор хэш-таблицы.

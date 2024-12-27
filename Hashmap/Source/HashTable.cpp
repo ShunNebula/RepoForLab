@@ -30,7 +30,7 @@ size_t HashTable::GetHash(std::string key)
 	size_t hashValue = 0;
 	for (char c : key)
 	{
-		hashValue = (hashValue * HASH_CONSTANT1) + static_cast<unsigned char>(c) + HASH_CONSTANT2;
+		hashValue = (hashValue * HashConstant1) + static_cast<unsigned char>(c) + HashConstant2;
 	}
 
 	return hashValue;
