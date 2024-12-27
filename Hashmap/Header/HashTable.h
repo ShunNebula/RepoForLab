@@ -6,6 +6,7 @@
 /// <summary>
 /// Начальный размер таблицы для инициализации.
 /// </summary>
+// TODO: RSDN (пересмотреть везде)
 const size_t INITIAL_TABLE_SIZE = 11;
 
 /// <summary>
@@ -73,7 +74,6 @@ public:
 	/// </summary>
 	/// <param name="initialSize">Размер таблицы.</param>
 	/// <param name="loadFactor">Максимальный коэфициент заполнения.</param>
-	/// // TODO: Вынести в константы
 	HashTable(size_t initialSize = INITIAL_TABLE_SIZE, double loadFactor = MAX_LOAD_FACTOR);
 
 	/// <summary>

@@ -108,8 +108,6 @@ int main()
 
 	int choice;
 
-	// TODO: Внести ключ и значение в тело case
-
 	do
 	{
 		cout << endl << "Меню" << endl;
