@@ -6,7 +6,6 @@
 /// <summary>
 /// Начальный размер таблицы для инициализации.
 /// </summary>
-// TODO: RSDN (пересмотреть везде)
 const size_t InitialTableSize = 11;
 
 /// <summary>
